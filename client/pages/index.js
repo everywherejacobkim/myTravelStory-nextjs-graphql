@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { StoryCard, StoryWidget, Categories } from '../components';
+import { StoryCard, StoryWidget, Categories, Header } from '../components';
 
 const stories = [
   { title: 'Rocky Mountain National Park', excerpt: 'World most beautiful park in Alberta, Canada'},
