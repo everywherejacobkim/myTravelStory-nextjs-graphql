@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
+import moment from 'moment/moment';
 
 const categories = [
     { name: 'Africa', slug: 'africa' },
@@ -11,7 +12,7 @@ const categories = [
 
 const Header = () => {
     return (
-        <div className='container mx-auto px-10 mb-8'>
+        <div className='header container mx-auto px-10 mb-8'>
             <div className='border-b w-full inline-block border-gray-800 py-8'>
                 <div className='md:float-left block'>
                     <Link href='/'>
@@ -23,7 +24,7 @@ const Header = () => {
                 <div className='hidden md:float-left md:contents'>
                     {categories.map((category) => (
                         <Link href={`/category/${category.slug}`} key={category.slug}>
-                            <span className='md:float-right mt-2 align-middle ml-4 font-semibold cursor-pointer'>
+                            <span className='text-lg md:float-right mt-2 align-middle ml-4 font-semibold cursor-pointer'>
                                 {category.name}
                             </span>
                         </Link>)

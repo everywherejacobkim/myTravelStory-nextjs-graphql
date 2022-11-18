@@ -12,7 +12,6 @@ export const getStories = async () => {
                             name
                             slug
                         }
-                        createdAt
                         title
                         date
                         slug
@@ -28,6 +27,9 @@ export const getStories = async () => {
                                 url
                             }
                         }
+                        content {
+                            text
+                        }
                     }
                 }
             }
@@ -39,4 +41,53 @@ export const getStories = async () => {
     
     return data;
 
+}
+
+
+export const getRecentStories = async () => {
+    const query = gql`
+        query GetStoryDetails() {
+            stories(orderBy: createdAt_ASC, last: 3) {
+                title
+                slug
+                featuredImage {
+                    url
+                }
+                createdAt
+                date
+                country
+                area
+        }
+        }`;
+
+    const result = await request(graphqlAPI, query);
+    const data = result.stories;
+    
+    return data;
+}
+
+
+export const getSimilarStories = async () => {
+    const query = gql`
+        query GetStoryDetails($slug: String!, $continents: [String!]) {
+            stories(
+                where: {slug_not: $slug, AND: {continents_some: {slug_in: $continents}}}
+                last: 3
+                ) {
+                title
+                slug
+                featuredImage {
+                    url
+                }
+                createdAt
+                date
+                country
+                area
+                }
+        }`;
+
+    const result = await request(graphqlAPI, query);
+    const data = result.stories;
+    
+    return data;
 }
