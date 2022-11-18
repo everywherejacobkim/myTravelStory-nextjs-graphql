@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import { StoryCard, StoryWidget, Categories, Header } from '../components';
+import { getStories } from '../services';
 
-const stories = [
-  { title: 'Rocky Mountain National Park', excerpt: 'World most beautiful park in Alberta, Canada'},
-  { title: 'Raining Seattle', excerpt: 'The day was cold and rainy in Seattle..'},
-]
+// const stories = [
+//   { title: 'Rocky Mountain National Park', excerpt: 'World most beautiful park in Alberta, Canada'},
+//   { title: 'Raining Seattle', excerpt: 'The day was cold and rainy in Seattle..'},
+// ]
 
-export default function Home() {
+export default function Home({ stories }) {
+  
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -18,7 +20,7 @@ export default function Home() {
         <div className='col-span-1 lg:col-span-8'>
           {
             stories.map((story) => (
-              <StoryCard story={story} key={story.title} />
+              <StoryCard story={story.node} key={story.title} />
             )
           )}
         </div>
@@ -32,4 +34,13 @@ export default function Home() {
 
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const stories = (await getStories()) || [];
+  return {
+    props: {
+      stories
+    }
+  }
 }

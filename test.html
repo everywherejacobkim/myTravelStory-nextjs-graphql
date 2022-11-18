@@ -1,0 +1,57 @@
+<html>
+    <head>
+	<style>
+
+    </style>
+    </head>
+
+    <body>
+        <h1>Welcome :) Click the button and log-in now!</h1>
+	<script>
+        if (!document.location.href.includes('code')) {
+                let client_id = '325413653801-7toa1vctc6os077erfnd8a61hp5oq1oq.apps.googleusercontent.com';
+                let login_url = ['https://accounts.google.com/o/oauth2/v2/auth?',
+                    'redirect_uri=https://learn.operatoroverload.com/~nkim24/lab9/oauth/',
+                    '&prompt=consent&response_type=code',
+                    `&client_id=${client_id}`,
+                    '&scope=email+profile+openid&access_type=offline'].join('');
+
+                let login_button = document.createElement('button');
+                login_button.innerHTML = 'Login to google';
+                login_button.addEventListener('click', evt => {
+                    document.location.href = login_url;
+                });
+
+                document.body.append(login_button);
+
+        } else {
+                let params = new URLSearchParams(location.search);
+                let code = params.get('code');
+
+                document.body.append('Your AUTH_CODE is:' + code);
+
+                fetch(`https://learn.operatoroverload.com/~nkim24/lab9/oauth/code.sh?${code}`)
+                    .then(respond => {
+                        if (respond.status == 200) {
+                            return respond.json();
+                        } else {
+                            throw "Cannot get token";
+                        }
+                    })
+                    .then(json => {
+                        console.log(json);
+                        if (json.access_token) {
+                            tokenNode = document.createElement('div');
+                            tokenNode.innerHTML = JSON.stringify(json);
+                            document.body.append(tokenNode);
+                        } else {
+                            tokenNode = document.createElement('pre');
+                            tokenNode.innerHTML = JSON.stringify(json, null, 4);
+                            document.body.append(tokenNode);
+                        }
+                    });
+
+        }
+	</Script>
+    </body>
+</html>
