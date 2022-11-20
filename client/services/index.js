@@ -4,7 +4,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
 
 export const getStories = async () => {
     const query = gql`
-        query MyQuery {
+        query GetStories {
             storiesConnection {
                 edges {
                     node {
@@ -67,26 +67,23 @@ export const getRecentStories = async () => {
 }
 
 
-export const getSimilarStories = async () => {
+export const getSimilarStories = async (slug, continents) => {
     const query = gql`
-        query GetStoryDetails($slug: String!, $continents: [String!]) {
+        query GetSimilarStories($slug: String!, $continents: [String!]) {
             stories(
-                where: {slug_not: $slug, AND: {continents_some: {slug_in: $continents}}}
+                where: {slug_not: $slug, AND: {categories_some: {slug_in: $continents}}}
                 last: 3
                 ) {
                 title
-                slug
                 featuredImage {
                     url
                 }
                 createdAt
-                date
-                country
-                area
+                slug
                 }
         }`;
 
-    const result = await request(graphqlAPI, query);
+    const result = await request(graphqlAPI, query, {slug, continents});
     const data = result.stories;
     
     return data;
@@ -95,7 +92,7 @@ export const getSimilarStories = async () => {
 
 export const getCategories = async () => {
     const query = gql`
-        query getCategories {
+        query GetCategories {
             continents {
                 name
                 slug
@@ -106,5 +103,43 @@ export const getCategories = async () => {
     const result = await request(graphqlAPI, query);
     const data = result.continents;
     
+    return data;
+}
+
+
+export const getStoryDetails = async ( slug ) => {
+    const query = gql`
+        query GetStoryDetails($slug: String!) {
+        story(where: {slug: $slug}) {
+                        traveler {
+                            bio
+                            name
+                            id
+                            photo {
+                                url
+                            }
+                        }
+                        categories {
+                            name
+                            slug
+                        }
+                        createdAt
+                        title
+                        date
+                        slug
+                        featuredImage {
+                            url
+                        }
+                        content {
+                            raw
+                            text
+                        }
+                    }
+                }
+    `;
+
+    const result = await request(graphqlAPI, query, { slug });
+    const data = result.story;
+
     return data;
 }

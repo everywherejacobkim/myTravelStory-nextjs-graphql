@@ -3,3 +3,7 @@ export { default as StoryWidget } from './StoryWidget/StoryWidget';
 export { default as Header } from './Header/Header';
 export { default as Layout } from './Layout/Layout';
 export { default as Categories } from './Categories/Categories';
+export { default as StoryDetail } from './StoryDetail/StoryDetail';
+export { default as Traveler } from './Traveler/Traveler';
+export { default as CommentsForm } from './CommentsForm/CommentsForm';
+export { default as Comments } from './CommentsForm/Comments/Comments';

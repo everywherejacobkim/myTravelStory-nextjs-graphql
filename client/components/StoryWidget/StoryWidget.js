@@ -1,20 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import moment from 'moment';
-import Link from 'next/link';
 import { getRecentStories, getSimilarStories } from '../../services'
 
-const StoryWidget = ({continents, slug}) => {
+const StoryWidget = ({slug, continents}) => {
     const [recentStories, setRecentStories] = useState([]);
     
     useEffect(() => {
         if(slug) {
-            getSimilarStories(continents, slug).then((result) => setRecentStories(result));
+            getSimilarStories(slug, continents).then((result) => setRecentStories(result));
         } else {
             getRecentStories().then((result) => setRecentStories(result));
         }
     }, [slug])
     
-    console.log(recentStories);
+    console.log(recentStories, 'this is recent');
 
     return (
         <div className='bg-white p-5 mb-5 shadow-lg rounded-xl'>
