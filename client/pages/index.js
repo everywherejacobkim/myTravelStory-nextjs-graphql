@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { StoryCard, StoryWidget, Header } from '../components';
+import { StoryCard, StoryWidget, Header,Categories } from '../components';
 import { getStories } from '../services';
 
 // const stories = [
@@ -27,6 +27,7 @@ export default function Home({ stories }) {
         <div className='col-span-1 lg:col-span-4'>
           <div>
             <StoryWidget />
+            <Categories />
           </div>
         </div>
       </div>

@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import moment from 'moment/moment';
+import { getCategories } from '../../services';
 
-const categories = [
-    { name: 'Africa', slug: 'africa' },
-    { name: 'South America', slug: 'south-america' },
-    { name: 'North America', slug: 'north-america' },
-    { name: 'Europe', slug: 'europe' },
-    { name: 'Asia', slug: 'asia' },
-]
 
 const Header = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        getCategories().then((result) => setCategories(result));
+    }, [])
+
     return (
         <div className='header container mx-auto px-10 mb-8'>
             <div className='border-b w-full inline-block border-gray-800 py-8'>

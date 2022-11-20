@@ -91,3 +91,20 @@ export const getSimilarStories = async () => {
     
     return data;
 }
+
+
+export const getCategories = async () => {
+    const query = gql`
+        query getCategories {
+            continents {
+                name
+                slug
+            }
+        }
+    `;
+
+    const result = await request(graphqlAPI, query);
+    const data = result.continents;
+    
+    return data;
+}
