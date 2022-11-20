@@ -15,7 +15,7 @@ const StoryWidget = ({slug, continents}) => {
     console.log(recentStories, 'this is recent');
 
     return (
-        <div className='bg-white p-5 mb-5 shadow-lg rounded-xl'>
+        <div className='bg-white p-5 mb-5 shadow-xl rounded'>
             <h3 className='text-lg mb-5'>    
                 {recentStories.length > 3 ? `More Stories in ${recentStories[0].country}` : 'Recent Stories' }
             </h3>

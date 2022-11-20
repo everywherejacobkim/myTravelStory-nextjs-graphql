@@ -11,7 +11,7 @@ const Categories = () => {
 
     console.log(categories);
     return (
-        <div className='bg-white p-5 mb-5 shadow-lg rounded-xl'>
+        <div className='bg-white p-5 mb-5 shadow-xl rounded'>
         <h3 className='text-lg mb-5'>    
             Categories
         </h3>
