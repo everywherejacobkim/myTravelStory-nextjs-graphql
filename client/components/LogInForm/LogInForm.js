@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link, Checkbox, FormControlLabel } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material';
+import FlightIcon from '@mui/icons-material/Flight';
 
 const LogInForm = () => {
 
@@ -11,11 +11,13 @@ const LogInForm = () => {
     }
 
     return (
-        <div className='ml-20'>
-            <Paper elevation={20} className='p-20 w-[50%] mt-20 ml-10'>
+        <div className='flex h-screen'>
+            <Paper elevation={20} className='m-auto px-12 py-16'>
                 <Grid className='mb-10' align='center'>
-                    <Avatar className='bg-green-500'><LockOutlinedIcon/></Avatar>
-                    <h2>Sign In</h2>
+                    <Avatar className='bg-green-500 mb-3'>
+                        <FlightIcon className='rotate-45' />
+                    </Avatar>
+                    <h1 className='header text-xl'>Are you ready to travel?</h1>
                 </Grid>
                 <TextField label='Username' placeholder='Enter username' variant="outlined" fullWidth required className='mb-1.5'/>
                 <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required/>
