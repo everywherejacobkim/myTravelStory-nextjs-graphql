@@ -13,6 +13,7 @@ export const getStories = async () => {
                             slug
                         }
                         title
+                        continent
                         date
                         slug
                         excerpt

@@ -7,3 +7,5 @@ export { default as StoryDetail } from './StoryDetail/StoryDetail';
 export { default as Traveler } from './Traveler/Traveler';
 export { default as CommentsForm } from './CommentsForm/CommentsForm';
 export { default as Comments } from './CommentsForm/Comments/Comments';
+export { default as SignUpForm } from './SignUpForm/SignUpForm';
+export { default as LogInForm } from './LogInForm/LogInForm';
