@@ -11,8 +11,8 @@ const LogInForm = () => {
     }
 
     return (
-        <div className='ml-50'>
-            <Paper elevation={20} className='p-20 w-[50%] mt-20 ml-50'>
+        <div className='ml-20'>
+            <Paper elevation={20} className='p-20 w-[50%] mt-20 ml-10'>
                 <Grid className='mb-10' align='center'>
                     <Avatar className='bg-green-500'><LockOutlinedIcon/></Avatar>
                     <h2>Sign In</h2>

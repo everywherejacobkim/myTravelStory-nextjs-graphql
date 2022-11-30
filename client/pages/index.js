@@ -6,7 +6,7 @@ import LogInForm from '../components/LogInForm/LogInForm';
 export default function Home({ stories }) {
   
   return (
-      <div className='m-[0 auto]'>
+      <div className='grid grid grid-cols-1 lg:grid-cols-16 gap-6'>
         {/* <Link href={'/home'}>
           <Button variant="contained" className='bg-blue-500 hover:bg-blue-200 hover:text-blue-700'>Enter</Button>
         </Link> */}
@@ -14,3 +14,4 @@ export default function Home({ stories }) {
       </div>  
   )
 }
+  
