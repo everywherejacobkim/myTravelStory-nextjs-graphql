@@ -19,7 +19,7 @@ const LogInForm = () => {
                     </Avatar>
                     <h1 className='header text-xl'>Are you ready to travel?</h1>
                 </Grid>
-                <TextField label='Username' placeholder='Enter username' variant="outlined" fullWidth required className='mb-1.5'/>
+                <TextField label='Email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5'/>
                 <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required/>
                 <Button type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Sign in</Button>
                 <Typography className='mr-10'> Create account?
