@@ -1,16 +1,16 @@
 import HomePage from './home';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
-import LogInForm from '../components/LogInForm/LogInForm';
+import LoginForm from '../components/LoginForm/LoginForm';
 
 export default function Home({ stories }) {
   
   return (
-      <div className='grid grid grid-cols-1 lg:grid-cols-16 gap-6'>
+      <div>
         {/* <Link href={'/home'}>
           <Button variant="contained" className='bg-blue-500 hover:bg-blue-200 hover:text-blue-700'>Enter</Button>
         </Link> */}
-        <LogInForm />
+        <LoginForm />
       </div>  
   )
 }

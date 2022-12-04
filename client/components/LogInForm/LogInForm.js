@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 
-const LogInForm = () => {
+const LoginForm = () => {
 
     const btnStyle = {
         background: '#25a244',
         margin: '20px 0',
         padding: 12, 
+    }
+
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const login = async () => {
+
     }
 
     return (
@@ -19,11 +26,11 @@ const LogInForm = () => {
                     </Avatar>
                     <h1 className='header text-xl'>Are you ready to travel?</h1>
                 </Grid>
-                <TextField label='Email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5'/>
-                <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required/>
-                <Button type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Sign in</Button>
+                <TextField label='Email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5' onChange={(e) => {setLoginEmail(e.target.value)}}/>
+                <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required onChange={(e) => {setLoginPassword(e.target.value)}}/>
+                <Button type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Login</Button>
                 <Typography className='mr-10'> Create account?
-                    <Link href="#" underline='none'>
+                    <Link href="/signup" underline='none'>
                         &nbsp;Click here 
                     </Link>
                 </Typography>
@@ -32,4 +39,4 @@ const LogInForm = () => {
     )
 }
 
-export default LogInForm
+export default LoginForm
