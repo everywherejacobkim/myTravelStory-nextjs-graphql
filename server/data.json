@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "userId": 1,
+            "firstName": "Krish",
+            "lastName": "Lee",
+            "email": "krish.lee@gmail.com",
+            "password": "krish@123"
+        },
+        {
+            "userId": 2,
+            "firstName": "racks",
+            "lastName": "jacson",
+            "email": "racks.jacson@gmail.com",
+            "password": "racks@123"
+        },
+        {
+            "userId": 3,
+            "firstName": "daniel",
+            "lastName": "roast",
+            "email": "daniel.roast@gmail.com",
+            "password": "daniel@123"
+        }
+    ]
+}
