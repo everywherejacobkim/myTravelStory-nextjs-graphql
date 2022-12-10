@@ -1,6 +1,3 @@
-import HomePage from './home';
-import Link from 'next/link';
-import Button from '@mui/material/Button';
 import LoginForm from '../components/LoginForm/LoginForm';
 
 export default function Home({ stories }) {

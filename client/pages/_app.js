@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Layout } from '../components';
+import React from 'react';
+import { UserProvider } from '../context/UserContext';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
   return (
+    <UserProvider>
       <Component {...pageProps} />
+    </UserProvider>
 )}
 
 export default MyApp

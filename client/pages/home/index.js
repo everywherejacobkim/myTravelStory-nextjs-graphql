@@ -2,11 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Skeleton_StoryCard from '../../components/Skeletons/Skeleton_StoryCard/Skeleton_StoryCard';
 import {getStories} from '../../services';
-import { StoryCard, StoryWidget, Categories } from '../../components';
+import { StoryCard, StoryWidget, Categories, Profile } from '../../components';
 import { Layout } from '../../components';
 
-export default function HomePage({stories}) {
-    return (
+export default function HomePage({ stories }) {
+console.log(stories)
+  return (
         <Layout>
             <div className="container mx-auto px-10 mb-8">
                 <Head>
@@ -28,8 +29,9 @@ export default function HomePage({stories}) {
                     </div>
                     <div className='col-span-1 lg:col-span-4'>
                         <div>
-                        <StoryWidget />
-                        <Categories />
+                            <Profile />
+                            <StoryWidget />
+                            <Categories />
                         </div>
                     </div>
                 </div>
