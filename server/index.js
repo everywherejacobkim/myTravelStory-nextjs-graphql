@@ -1,14 +1,40 @@
 const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
 
-const app = express();
-const port = 8080;
+const typeDefs = gql`
+type Query {
+    hello: String
+}
+`;
 
-app.use(express.json());
+const resolvers = {
+    Query: {
+        hello: () => 'Hello world!',
+    },
+};
 
-app.use("/auth", require("./routes/auth"));
+const startApolloServer = async (typeDefs, resolvers) => {
 
-app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
-});
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers
+    })
+
+    await server.start();
+
+    const app = express();
+    const port = 8080;
+
+    server.applyMiddleware({ app });
+
+    app.use(express.json());
+    app.use("/auth", require("./routes/auth"));
 
 
+    app.listen(port, () => {
+        console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
+    });
+
+}
+
+startApolloServer(typeDefs, resolvers);

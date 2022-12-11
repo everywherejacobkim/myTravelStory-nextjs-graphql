@@ -8,7 +8,6 @@ const users = require('../data.json').users;
 require('dotenv').config();
 
 
-
 // Sign up
     router.post('/signup',
         [

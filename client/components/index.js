@@ -9,4 +9,4 @@ export { default as CommentsForm } from './CommentsForm/CommentsForm';
 export { default as Comments } from './CommentsForm/Comments/Comments';
 export { default as SignUpForm } from './SignupForm/SignupForm';
 export { default as LogInForm } from './LoginForm/LoginForm';
-export { default as Profile } from './Profile/Profile';
+export { default as Welcome } from './Welcome/Welcome';

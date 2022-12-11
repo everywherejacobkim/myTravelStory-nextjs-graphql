@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Skeleton_StoryCard from '../../components/Skeletons/Skeleton_StoryCard/Skeleton_StoryCard';
 import {getStories} from '../../services';
-import { StoryCard, StoryWidget, Categories, Profile } from '../../components';
+import { StoryCard, StoryWidget, Categories, Welcome } from '../../components';
 import { Layout } from '../../components';
 
 export default function HomePage({ stories }) {
@@ -29,7 +29,7 @@ console.log(stories)
                     </div>
                     <div className='col-span-1 lg:col-span-4'>
                         <div>
-                            <Profile />
+                            <Welcome />
                             <StoryWidget />
                             <Categories />
                         </div>

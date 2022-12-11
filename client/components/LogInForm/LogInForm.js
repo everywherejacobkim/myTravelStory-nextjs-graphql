@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
@@ -37,10 +37,6 @@ const LoginForm = () => {
         }
     }
 
-    const logout = async () => {
-        await signOut(auth);
-    }
-
     // onAuthStateChanged(auth, (currentUser) => {
     //     setUser(currentUser);
     // })
@@ -59,7 +55,6 @@ const LoginForm = () => {
                 <TextField label='Email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5' onChange={(e) => {setLoginEmail(e.target.value)}}/>
                 <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required onChange={(e) => {setLoginPassword(e.target.value)}}/>
                 <Button onClick={login} type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Login</Button>
-                <Button onClick={logout} type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Logout</Button>
                 <Typography className='mr-10'> Create account?
                     <Link href="/signup" underline='none'>
                         &nbsp;Click here 

@@ -12,12 +12,12 @@ const Categories = () => {
     console.log(categories);
     return (
         <div className='bg-white p-5 mb-5 shadow-xl rounded'>
-        <h3 className='text-lg mb-5'>    
+        <h3 className='title-font text-lg mb-4'>    
             Categories
         </h3>
         {categories.map((category) => (
             <Link key={category.slug} href={`/category/${category.slug}`}>
-                <div>
+                <div className='category text-lg'>
                     {category.name}
                 </div>
             </Link>
