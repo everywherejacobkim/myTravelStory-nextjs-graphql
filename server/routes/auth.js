@@ -1,17 +1,21 @@
-const router = require('express').Router();
-const { check, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
-const JWT = require('jsonwebtoken');
+import express from 'express';
+import { check, validationResult } from 'express-validator';
+import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
+import { createRequire } from "module";
+
+const router = express.Router();
 const JWT_SECRET = process.env.ACCESS_TOKEN_SECRET;
-const users = require('../data.json').users;
 
-require('dotenv').config();
+const require = createRequire(import.meta.url);
+const users = require("../data.json");
 
+const authRouter = () => {
 
-// Sign up
+    // Sign up
     router.post('/signup',
         [
-            check('email', 'Invalid email').isEmail(),      
+            check('email', 'Invalid email').isEmail(),
             check('password', 'Password must be at least 6 characters').isLength({ min: 6 }),
         ],
         async (req, res) => {
@@ -38,7 +42,7 @@ require('dotenv').config();
             // console.log('hashed password: ', hashedPassword)
 
             // save user to database
-            users?.push({ email, password});
+            users?.push({ email, password });
 
             // JWT
             const accessToken = await JWT.sign({ email }, JWT_SECRET, { expiresIn: '1200s' });
@@ -47,7 +51,7 @@ require('dotenv').config();
     )
     
 
-// Log in
+    // Log in
     router.post("/login", async (req, res) => {
         const { email, password } = req.body;
 
@@ -72,11 +76,12 @@ require('dotenv').config();
     );
 
 
-// Get all users
+    // Get all users
     router.get('/users', (req, res) => {
         res.json(users);
     }
     );
 
+}
 
-module.exports = router;
+export default authRouter;
