@@ -25,7 +25,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
     app.use("/auth", authRouter);
 
     await new Promise(resolve => httpServer.listen(port, resolve));
-    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+    console.log(`🚀 Server ready at ${port}${server.graphqlPath}`);
 }
 
 startApolloServer(typeDefs, resolvers);
