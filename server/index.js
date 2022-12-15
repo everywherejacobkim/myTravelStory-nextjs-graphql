@@ -9,7 +9,7 @@ import authRouter from './routes/auth.js';
 const startApolloServer = async (typeDefs, resolvers) => {
     const app = express();
     const httpServer = http.createServer(app)
-    const port = 8080;
+    const port = 4000;
 
     const server = new ApolloServer({
         typeDefs,

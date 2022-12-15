@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react';
 import { getRecentStories, getSimilarStories } from '../../services';
 import Link from 'next/link';
 
-const StoryWidget = ({stories, slug, continents}) => {
+const StoryWidget = ({stories, slug, continent}) => {
     const [recentStories, setRecentStories] = useState([]);
     
-    useEffect(() => {
-        if(slug) {
-            getSimilarStories(slug, continents).then((result) => setRecentStories(result));
-        } else {
-            getRecentStories().then((result) => setRecentStories(result));
-        }
-    }, [slug])
+    // useEffect(() => {
+    //     if(slug) {
+    //         getSimilarStories(slug, continent).then((result) => setRecentStories(result));
+    //     } else {
+    //         getRecentStories().then((result) => setRecentStories(result));
+    //     }
+    // }, [slug])
     
     return (
         <div className='bg-white p-5 mb-5 shadow-xl rounded'>

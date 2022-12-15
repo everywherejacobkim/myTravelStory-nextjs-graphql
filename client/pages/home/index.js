@@ -1,13 +1,16 @@
 import React from 'react';
 import Head from 'next/head';
 import Skeleton_StoryCard from '../../components/Skeletons/Skeleton_StoryCard/Skeleton_StoryCard';
-import {getStories} from '../../services';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_STORIES, GET_TRAVELER } from '../../services';
 import { StoryCard, StoryWidget, Categories, Welcome } from '../../components';
 import { Layout } from '../../components';
 
-export default function HomePage({ stories }) {
-console.log(stories)
-  return (
+export default function HomePage({stories, traveler}) {
+
+    console.log(stories)
+
+    return (
         <Layout>
             <div className="container mx-auto px-10 mb-8">
                 <Head>
@@ -19,7 +22,7 @@ console.log(stories)
                     <div className='col-span-1 lg:col-span-8'>
                         {stories? (
                         stories.map((story) => (
-                            <StoryCard story={story.node} key={story.title} />
+                            <StoryCard story={story} traveler={traveler} key={story.title} />
                         )
                         ))
                         : (
@@ -41,10 +44,12 @@ console.log(stories)
 }
 
 export async function getStaticProps() {
-    const stories = (await getStories()) || [];
+    const stories = (await GET_ALL_STORIES()) || [];
+    const traveler = (await GET_TRAVELER()) || [];
+
         return {
             props: {
-                stories
+                stories, traveler
             }
     }
 }

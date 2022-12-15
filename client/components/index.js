@@ -6,7 +6,6 @@ export { default as Categories } from './Categories/Categories';
 export { default as StoryDetail } from './StoryDetail/StoryDetail';
 export { default as Traveler } from './Traveler/Traveler';
 export { default as CommentsForm } from './CommentsForm/CommentsForm';
-export { default as Comments } from './CommentsForm/Comments/Comments';
 export { default as SignUpForm } from './SignupForm/SignupForm';
 export { default as LogInForm } from './LoginForm/LoginForm';
 export { default as Welcome } from './Welcome/Welcome';

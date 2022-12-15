@@ -1,9 +1,10 @@
 import React from 'react';
-import { StoryDetail, Categories, Traveler, StoryWidget, CommentsForm, Comments } from '../../components';
-import { getStories, getStoryDetails } from '../../services';
+import { StoryDetail, Categories, Traveler, StoryWidget, CommentsForm } from '../../components';
+import { getStoryDetails, GET_TRAVELER } from '../../services';
 import { Layout } from '../../components';
 
-const StoryDetails = ({story}) => {
+const StoryDetails = ({story, traveler}) => {
+    console.log(story)
     return (
         <Layout>
             <div className='container mx-auto px-10 mb-5'>
@@ -11,12 +12,11 @@ const StoryDetails = ({story}) => {
                     <div className='col-span-1 lg:col-span-8'>
                         <StoryDetail story={story} />
                         <CommentsForm slug={story.slug} />
-                        <Comments slug={story.slug} />
                     </div>
                     <div className='col-span-1 lg:col-span-4'>
                         <div className='relative lg:sticky top-5'>
-                            <Traveler traveler={story.traveler} />
-                            <StoryWidget slug={story.slug} continents={story.categories.map((category) => category.slug)} />
+                            <Traveler traveler={traveler} />
+                            <StoryWidget slug={story.slug} continents={story.continent} />
                             <Categories />
                         </div>
                     </div>
@@ -30,17 +30,19 @@ export default StoryDetails
 
 export async function getStaticProps({params}) {
     const data = await getStoryDetails(params.slug);
+    const traveler = (await GET_TRAVELER()) || [];
     return {
         props: {
-            story: data
+            story: data,
+            traveler
         }
-        }
+    }
 }
     
 export async function getStaticPaths() {
-    const stories = await getStories();
     return {
-        paths: stories.map(({ node: { slug } }) => ({ params: { slug } })),
-        fallback: false
+        paths: [],
+        fallback: 'blocking'
     }
 }
+

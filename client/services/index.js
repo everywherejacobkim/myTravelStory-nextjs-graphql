@@ -1,100 +1,75 @@
 import { request, gql } from 'graphql-request';
-
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
 
-export const getStories = async () => {
+export const GET_ALL_STORIES = async () => {
     const query = gql`
-        query GetStories {
-            storiesConnection {
-                edges {
-                    node {
-                        categories {
-                            name
-                            slug
-                        }
-                        title
-                        continent
-                        date
-                        slug
-                        excerpt
-                        featuredImage {
-                            url
-                        }
-                        traveler {
-                            bio
-                            name
-                            id
-                            photo {
-                                url
-                            }
-                        }
-                        content {
-                            text
-                        }
-                    }
+        query GetAllStories {
+                allStories {
+                    id
+                    title
+                    continent
+                    date
+                    slug    
+                    excerpt
+                    content
+                    featuredImage
                 }
-            }
         }
     `;
 
     const result = await request(graphqlAPI, query);
-    const data = result.storiesConnection.edges;
-    
-    return data;
+    const data = result.allStories;
 
+    return data;
 }
 
-
-export const getRecentStories = async () => {
+export const GET_CATEGORY_STORIES = async (continent) => {
     const query = gql`
-        query GetStoryDetails() {
-            stories(orderBy: createdAt_ASC, last: 3) {
-                title
-                slug
-                featuredImage {
-                    url
+        query GetCategorizedStories($continent: String!) {
+            categorizedStory(
+                where: {continent: $continent}
+                ) {
+                    id
+                    title
+                    continent
+                    date
+                    slug    
+                    excerpt
+                    content
+                    featuredImage
                 }
-                createdAt
-                date
-                country
-                area
         }
-        }`;
+    `;
 
     const result = await request(graphqlAPI, query);
-    const data = result.stories;
-    
+    const data = result.allStories;
+
     return data;
 }
 
-
-export const getSimilarStories = async (slug, continents) => {
+export const GET_TRAVELER = async () => {
     const query = gql`
-        query GetSimilarStories($slug: String!, $continents: [String!]) {
-            stories(
-                where: {slug_not: $slug, AND: {categories_some: {slug_in: $continents}}}
-                last: 3
-                ) {
-                title
-                featuredImage {
-                    url
+        query GetTraveler {
+                allTravelers {
+                    id
+                    name
+                    bio
+                    photo
                 }
-                createdAt
-                slug
-                }
-        }`;
+        }
+    `;
 
-    const result = await request(graphqlAPI, query, {slug, continents});
-    const data = result.stories;
-    
+    const result = await request(graphqlAPI, query);
+    const data = result.allTravelers[0];
+
     return data;
 }
-
 
 export const getCategories = async () => {
     const query = gql`
         query GetCategories {
-            continents {
+            categories {
+                id
                 name
                 slug
             }
@@ -102,44 +77,97 @@ export const getCategories = async () => {
     `;
 
     const result = await request(graphqlAPI, query);
-    const data = result.continents;
+    const data = result.categories;
+
+    return data;
+}
+
+
+export const getRecentStories = async () => {
+    const query = gql`
+        query GetStoryDetails() {
+            allStories(orderBy: createdAt_ASC, last: 3) {
+                id
+                title
+                continent
+                date
+                slug    
+                excerpt
+                content
+                featuredImage
+        }
+        }`;
+
+    const result = await request(graphqlAPI, query);
+    const data = result.allStories;
     
     return data;
 }
 
 
-export const getStoryDetails = async ( slug ) => {
+export const getSimilarStories = async (slug, continent) => {
+    const query = gql`
+        query GetSimilarStories($slug: String!, $continent: [String!]) {
+            allStories(
+                where: {slug_not: $slug, AND: {categories_some: {slug_in: $continent}}}
+                last: 3
+                ) {
+                id
+                title
+                continent
+                date
+                slug    
+                excerpt
+                content
+                }
+        }`;
+
+    const result = await request(graphqlAPI, query, {slug, continent});
+    const data = result.allStories;
+    
+    return data;
+}
+
+
+export const getStoryDetails = async (slug) => {
     const query = gql`
         query GetStoryDetails($slug: String!) {
-        story(where: {slug: $slug}) {
-                        traveler {
-                            bio
-                            name
-                            id
-                            photo {
-                                url
-                            }
-                        }
-                        categories {
-                            name
-                            slug
-                        }
-                        createdAt
-                        title
-                        date
-                        slug
-                        featuredImage {
-                            url
-                        }
-                        content {
-                            raw
-                            text
-                        }
-                    }
-                }
+            story(slug: $slug) {
+                id
+                title
+                continent
+                date
+                slug        
+                excerpt
+                content
+                featuredImage
+            }   
+        }
     `;
 
-    const result = await request(graphqlAPI, query, { slug });
+    const result = await request(graphqlAPI, query, {slug});
+    const data = result.story;
+
+    return data;
+}
+
+export const ADD_STORY = async () => {
+    const mutation = gql`
+    mutation AddStory($id: String!, $title: String!, $slug: String!, $continent: String!, $date: String!, $excerpt: String!, $content: String!, $featuredImage: String) {
+        addStory(id: $id, date: $date, title: $title, slug: $slug, continent: $continent, excerpt: $excerpt, content: $content, featuredImage: $featuredImage) {
+            id
+            date
+            title
+            slug
+            continent
+            excerpt
+            content
+            featuredImage
+        }
+    }
+`;
+
+    const result = await request(graphqlAPI, mutation);
     const data = result.story;
 
     return data;

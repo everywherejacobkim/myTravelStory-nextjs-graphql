@@ -13,7 +13,7 @@ const Traveler = ({traveler}) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <img src={traveler.photo.url} alt={traveler.name} width='55px' height='55px' className="rounded-full" />
+          <img src={traveler.photo} alt={traveler.name} width='55px' height='55px' className="rounded-full" />
           <div className='align-middle ml-2'>
             <h1 className='font-bold text-sm mt-2'>Traveler</h1>
             <h3 className='text-sm mt-[-2px] w-40'>{traveler.name}</h3>

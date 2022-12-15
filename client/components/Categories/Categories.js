@@ -7,9 +7,9 @@ const Categories = () => {
 
     useEffect(() => {
         getCategories().then((result) => setCategories(result));
+        console.log(categories)
     },[])
 
-    console.log(categories);
     return (
         <div className='bg-white p-5 mb-5 shadow-xl rounded'>
         <h3 className='title-font text-lg mb-4'>    

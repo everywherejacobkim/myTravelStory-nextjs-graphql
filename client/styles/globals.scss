@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap');
 
 html,
 body {
@@ -69,12 +70,14 @@ a {
   box-sizing: border-box;
 }
 
-.header {
+.header, .recent-story, .category {
   font-family: 'Patrick Hand SC', sans-serif;
 }
 
-.recent-story, .category {
-  font-family: 'Patrick Hand SC', sans-serif;
+.story-detail {
+  font-family: 'Mina', sans-serif;
+  font-size: 14pt;
+  line-height: 26pt;
 }
 
 .title-font {
