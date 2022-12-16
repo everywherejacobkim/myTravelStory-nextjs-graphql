@@ -35,11 +35,11 @@ const authRouter = () => {
             }
             
             // hash password
-            // const salt = await bcrypt.genSalt(10);
-            // console.log('salt: ', salt);
+            const salt = await bcrypt.genSalt(10);
+            console.log('salt: ', salt);
 
-            // const hashedPassword = await bcrypt.hash(password, salt);
-            // console.log('hashed password: ', hashedPassword)
+            const hashedPassword = await bcrypt.hash(password, salt);
+            console.log('hashed password: ', hashedPassword)
 
             // save user to database
             users?.push({ email, password });

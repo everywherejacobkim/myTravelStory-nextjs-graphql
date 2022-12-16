@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 import { useRouter } from 'next/router';
 import { UserContext } from '../../context/UserContext';
@@ -29,17 +29,12 @@ const LoginForm = () => {
                 loginPassword,
             );
             console.log(user);
-            // setLoginUser(user);
             console.log(`logged in user is ${loginUser}`); 
             router.push('/home');
         } catch (error) { 
         console.log(error.message); 
         }
     }
-
-    // onAuthStateChanged(auth, (currentUser) => {
-    //     setUser(currentUser);
-    // })
 
     const value = useContext(UserContext);
 

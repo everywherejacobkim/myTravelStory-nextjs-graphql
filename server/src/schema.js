@@ -101,6 +101,7 @@ const typeDefs = gql`
     type Query {
         story(slug: String!): Story
         allStories: [Story]
+        categorizedStory(continent: String!): Story
         traveler(id: String!): Traveler
         allTravelers: [Traveler]
         categories: [Category]
