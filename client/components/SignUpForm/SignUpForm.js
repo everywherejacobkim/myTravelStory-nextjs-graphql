@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Grid, Paper, Avatar, TextField, Button, Link } from '@mui/material';
+import { Grid, Paper, Avatar, TextField, Button } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
@@ -17,7 +17,6 @@ const SignupForm = () => {
 
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
   
   const router = useRouter();
 
@@ -27,7 +26,6 @@ const SignupForm = () => {
         auth,
         registerEmail,
         registerPassword,
-        displayName
       );
       console.log(user);
       
@@ -42,7 +40,7 @@ const SignupForm = () => {
     } catch (error) { 
       console.log(error.message); 
     }
-    }
+  }
 
     return (
         <div className='flex h-screen'>
@@ -53,7 +51,6 @@ const SignupForm = () => {
                     </Avatar>
                     <h1 className='header text-xl'>Are you ready to travel?</h1>
                 </Grid>
-                <TextField label='Name' placeholder='Jon Doe' type='name' variant="outlined" fullWidth required className='mb-1.5' onChange={(e) => {setDisplayName(e.target.value)}} />
                 <TextField label='Email' placeholder='jondoe@gmail.com' type='email' variant="outlined" fullWidth required className='mb-1.5' onChange={(e) => {setRegisterEmail(e.target.value)}} />
                 <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required onChange={(e) => {setRegisterPassword(e.target.value)}} />
                 <Button type='submit' color='primary' variant="contained" style={btnStyle} fullWidth onClick={register}>Sign Up</Button>

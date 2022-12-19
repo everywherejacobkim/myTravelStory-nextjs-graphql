@@ -13,7 +13,6 @@ const index = () => {
     // const [AddStory] = useMutation(ADD_STORY);
 
     const [selectedContinent, setSelectedContinent] = useState([]);
-    console.log(selectedContinent);
 
     const onFinish = values => {
         const { title, slug, continent, date, excerpt, content, featuredImage } = values;

@@ -4,8 +4,6 @@ import FlightIcon from '@mui/icons-material/Flight';
 import { onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 import { useRouter } from 'next/router';
-import { UserContext } from '../../context/UserContext';
-
 
 const LoginForm = () => {
 
@@ -17,7 +15,6 @@ const LoginForm = () => {
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-    const { loginUser, setLoginUser } = useContext(UserContext);
 
     const router = useRouter();
 
@@ -29,14 +26,11 @@ const LoginForm = () => {
                 loginPassword,
             );
             console.log(user);
-            console.log(`logged in user is ${loginUser}`); 
             router.push('/home');
         } catch (error) { 
         console.log(error.message); 
         }
     }
-
-    const value = useContext(UserContext);
 
     return (
         <div className='flex h-screen'>

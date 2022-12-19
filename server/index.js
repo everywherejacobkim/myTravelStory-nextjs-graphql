@@ -3,7 +3,9 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { typeDefs, resolvers } from './src/schema.js';
 import express from 'express';
 import http from 'http';
+import cors from 'cors';
 import authRouter from './routes/auth.js';
+import decodeToken from './utils/tokenValidator.js';
 
 
 const startApolloServer = async (typeDefs, resolvers) => {
@@ -18,11 +20,24 @@ const startApolloServer = async (typeDefs, resolvers) => {
     })
 
     await server.start();
-
     server.applyMiddleware({ app });
 
+    app.use(cors);
     app.use(express.json());
     app.use("/auth", authRouter);
+
+    // user verification by JWT
+    app.get("/verify", (req, res) => {
+        console.log(req.headers);
+        console.log(req.user);
+
+        decodeToken(req, res)
+        
+        return res.json({
+            message: "User verified"
+        })
+    })
+
 
     await new Promise(resolve => httpServer.listen(port, resolve));
     console.log(`🚀 Server ready at ${port}${server.graphqlPath}`);
