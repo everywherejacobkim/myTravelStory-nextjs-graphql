@@ -1,22 +1,25 @@
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { typeDefs, resolvers } from './src/schema.js';
 import express from 'express';
-import http from 'http';
 import cors from 'cors';
-import authRouter from './routes/auth.js';
+import http from 'http';
 import decodeToken from './utils/tokenValidator.js';
+import mongoose from 'mongoose';
+import * as dotenv from 'dotenv'; 
 
 
 const startApolloServer = async (typeDefs, resolvers) => {
     const app = express();
-    const httpServer = http.createServer(app)
-    const port = 4000;
+    const httpServer = http.createServer(app);
+    
+    dotenv.config()
+    const MONGODB = process.env.MONGODB_URL;
+    const port = process.env.PORT;
 
     const server = new ApolloServer({
         typeDefs,
-        resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+        resolvers
     })
 
     await server.start();
@@ -24,7 +27,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
     app.use(cors);
     app.use(express.json());
-    app.use("/auth", authRouter);
+
 
     // user verification by JWT
     app.get("/verify", (req, res) => {
@@ -38,9 +41,15 @@ const startApolloServer = async (typeDefs, resolvers) => {
         })
     })
 
-
-    await new Promise(resolve => httpServer.listen(port, resolve));
-    console.log(`🚀 Server ready at ${port}${server.graphqlPath}`);
+    mongoose.set("strictQuery", false);
+    mongoose.connect(MONGODB, { useNewUrlParser: true })
+        .then(() => {
+            console.log("MongoDB Connected");
+            new Promise(resolve => httpServer.listen(port, resolve));
+        })
+        .then((res) => {
+            console.log(`🚀 Server ready at ${port}${server.graphqlPath}`);
+        });
 }
 
 startApolloServer(typeDefs, resolvers);
