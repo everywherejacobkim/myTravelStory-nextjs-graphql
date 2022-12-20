@@ -1,9 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
-import { onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { auth } from '../../config/firebase-config';
 import { useRouter } from 'next/router';
+import { AuthContext } from '../../context/authContext';
+import { useForm } from '../../utility/hooks';
+import { useMutation } from '@apollo/react-hooks';
+import { gql } from 'graphql-tag';
+
+
+const LOGIN_USER = gql`
+    mutation login($loginInput: LoginInput) {
+        loginUser(loginInput: $loginInput) {
+        username
+        email
+        token       
+    }
+  }
+`
 
 const LoginForm = () => {
 
@@ -13,24 +26,32 @@ const LoginForm = () => {
         padding: 12, 
     }
 
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-
     const router = useRouter();
+    const context = useContext(AuthContext);
+    const [errors, setErrors] = useState([]);
 
-    const login = async () => {
-        try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                loginEmail,
-                loginPassword,
-            );
-            console.log(user);
-            router.push('/home');
-        } catch (error) { 
-        console.log(error.message); 
-        }
+    function loginUserCallback() {
+        loginUser();
     }
+    
+    const { onChange, onSubmit, values} = useForm(loginUserCallback, {
+        email: "",
+        password: "",
+    })
+
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+        update(proxy, { data: { loginUser: userData } }) { 
+          context.login(userData);
+          router.push('/home');
+        }, 
+        onError({ graphQLErrors }) {
+          setErrors(graphQLErrors);
+        },
+        variables: {
+          loginInput: values
+        }
+      })
+
 
     return (
         <div className='flex h-screen'>
@@ -41,9 +62,9 @@ const LoginForm = () => {
                     </Avatar>
                     <h1 className='header text-xl'>Are you ready to travel?</h1>
                 </Grid>
-                <TextField label='Email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5' onChange={(e) => {setLoginEmail(e.target.value)}}/>
-                <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required onChange={(e) => {setLoginPassword(e.target.value)}}/>
-                <Button onClick={login} type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Login</Button>
+                <TextField label='Email' name='email' placeholder='Enter email' type='email' variant="outlined" fullWidth required className='mb-1.5' onChange={onChange} />
+                <TextField label='Password' name='password' placeholder='Enter password' type='password' variant="outlined" fullWidth required onChange={onChange} />
+                <Button onClick={onSubmit} type='submit' color='primary' variant="contained" style={btnStyle} fullWidth>Login</Button>
                 <Typography className='mr-10'> Create account?
                     <Link href="/signup" underline='none'>
                         &nbsp;Click here 
