@@ -1,18 +1,18 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 
 const httpLink = createHttpLink({
-    uri: 'https://nkim24.wmdd4950.com/graphql',
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT
 });
 
 const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem('token')
     return {
         headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : ''
+            ...headers,
+            authorization: token ? `Bearer ${token}` : ''
         }
-    };
+    }
 });
 
 const client = new ApolloClient({
@@ -21,4 +21,6 @@ const client = new ApolloClient({
 });
 
 export default client;
+
+
 

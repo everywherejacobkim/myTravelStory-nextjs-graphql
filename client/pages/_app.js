@@ -1,16 +1,16 @@
 import React from 'react';
-import { UserProvider } from '../context/UserContext';
 import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apolloClient'
+import client from '../apolloClient'; 
+import { AuthProvider } from '../context/authContext';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <UserProvider>
+    <AuthProvider>
       <ApolloProvider client={client}>
         <Component {...pageProps} />
       </ApolloProvider>
-    </UserProvider>
+    </AuthProvider>
 )}
 
 export default MyApp

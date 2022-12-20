@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { typeDefs, resolvers } from './src/schema.js';
+import { typeDefs, resolvers } from './graphql/schema.js';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
