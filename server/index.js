@@ -1,12 +1,11 @@
-import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { typeDefs, resolvers } from './graphql/schema.js';
-import express from 'express';
-import cors from 'cors';
-import http from 'http';
-import decodeToken from './utils/tokenValidator.js';
-import mongoose from 'mongoose';
-import * as dotenv from 'dotenv'; 
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs  = require('./graphql/typeDefs.js');
+const resolvers  = require('./graphql/resolvers/index.js');
+const express = require('express');
+const cors = require('cors');
+const http = require('http');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 
 const startApolloServer = async (typeDefs, resolvers) => {
@@ -30,16 +29,16 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
 
     // user verification by JWT
-    app.get("/verify", (req, res) => {
-        console.log(req.headers);
-        console.log(req.user);
+    // app.get("/verify", (req, res) => {
+    //     console.log(req.headers);
+    //     console.log(req.user);
 
-        decodeToken(req, res)
+    //     decodeToken(req, res)
         
-        return res.json({
-            message: "User verified"
-        })
-    })
+    //     return res.json({
+    //         message: "User verified"
+    //     })
+    // })
 
     mongoose.set("strictQuery", false);
     mongoose.connect(MONGODB, { useNewUrlParser: true })

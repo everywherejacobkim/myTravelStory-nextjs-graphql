@@ -2,6 +2,8 @@ const User = require('../../models/User');
 const { ApolloError } = require('apollo-server-errors');
 const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
 dotenv.config();
 
 module.export = {

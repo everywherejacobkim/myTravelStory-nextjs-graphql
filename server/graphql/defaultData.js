@@ -68,4 +68,3 @@ const categories_data = [
     }
 ]
 
-export { allStories_data, allTravelers_data, categories_data }
