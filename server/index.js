@@ -27,19 +27,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
     app.use(cors);
     app.use(express.json());
 
-
-    // user verification by JWT
-    // app.get("/verify", (req, res) => {
-    //     console.log(req.headers);
-    //     console.log(req.user);
-
-    //     decodeToken(req, res)
-        
-    //     return res.json({
-    //         message: "User verified"
-    //     })
-    // })
-
     mongoose.set("strictQuery", false);
     mongoose.connect(MONGODB, { useNewUrlParser: true })
         .then(() => {
