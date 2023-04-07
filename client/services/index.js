@@ -60,7 +60,7 @@ export const GET_TRAVELER = async () => {
     `;
 
     const result = await request(graphqlAPI, query);
-    const data = result.allTravelers[0];
+    const data = result.allTravelers;
 
     return data;
 }

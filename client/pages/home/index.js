@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Skeleton_StoryCard from '../../components/Skeletons/Skeleton_StoryCard/Skeleton_StoryCard';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_STORIES, GET_TRAVELER } from '../../services';
 import { StoryCard, StoryWidget, Categories, Welcome } from '../../components';
 import { Layout } from '../../components';
+import data  from '../../data';
 
-export default function HomePage({stories, traveler}) {
+export default function HomePage() {
 
-    console.log(stories)
+    const stories = data.data_stories;
+    const traveler = data.data_traveler[0];
 
     return (
         <Layout>
@@ -43,13 +43,13 @@ export default function HomePage({stories, traveler}) {
     )
 }
 
-export async function getStaticProps() {
-    const stories = (await GET_ALL_STORIES()) || [];
-    const traveler = (await GET_TRAVELER()) || [];
+// export async function getStaticProps() {
+//     const stories = (await GET_ALL_STORIES()) || [];
+//     const traveler = (await GET_TRAVELER()) || [];
 
-        return {
-            props: {
-                stories, traveler
-            }
-    }
-}
+//         return {
+//             props: {
+//                 stories, traveler
+//             }
+//     }
+// }

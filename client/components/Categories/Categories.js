@@ -15,7 +15,7 @@ const Categories = () => {
         <h3 className='title-font text-lg mb-4'>    
             Categories
         </h3>
-        {categories.map((category) => (
+        {categories?.map((category) => (
             <Link key={category.slug} href={`/category/${category.slug}`}>
                 <div className='category text-lg'>
                     {category.name}
